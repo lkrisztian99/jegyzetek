@@ -1,0 +1,178 @@
+#include "std_lib_facilities.h"
+
+bool egysegek(string egyseg){
+	return (egyseg=="cm" || egyseg =="m" || egyseg =="in" || egyseg == "ft");
+}
+
+
+double valtas(double szam, string egyseg){  //létrehozok egy valtas nevű metódust hogy ne kelljen mindig megírni az adott függvényeket.
+	if(egysegek(egyseg)==true){
+		if(egyseg=="cm"){    //mértékegységnek megfelelően változtatom a megadott szám értékét.
+			return szam*0.01;
+		}
+		else if(egyseg=="in"){
+			return szam*2.54*0.01;
+		}else if(egyseg == "ft"){
+			return szam*12*2.54*0.01;
+		}else if(egyseg=="m"){
+			return szam*1;
+		}
+		
+		
+		
+		
+	}
+	return 0;
+	
+}
+
+
+int main(){
+//első feladat
+/*
+	int szam1=0;    //felveszek két változót amelynek alapértéke 0
+	int szam2=0;
+	
+	while(cin >> szam1 >> szam2){ //bekérünk 2 számot és kiíratom kivéve ha valamelyik szám helyett | -t adunk meg mert akkor kilép a ciklusból
+	if(szam1=='|' || szam2=='|'){
+	break;
+	}else{
+	cout << szam1 << " " << szam2 << "\n";
+	}
+	
+	
+	}
+első feladat vége */
+
+		//Második feladat
+		/*
+	int szam1=0;
+	int szam2=0;
+	
+	while(cin >> szam1 >> szam2){
+	if(szam1=='|' || szam2=='|'){		// a bekért két érték közül hogyha mind a 2 szám akkor kiírom a nagyobb és a kisebb szám értékét.
+	break;
+	}else{
+	if(szam1<szam2){
+		cout << "Smaller value is: " << szam1 << " The larger is : " << szam2 << endl;
+	}else{
+		cout << "Smaller value is: " << szam2 << " The larger is : " << szam1 << endl;
+	}
+	}
+	
+	
+	}
+	*/
+	
+	
+	
+	//harmadik feladat
+	/*
+	int szam1=0;
+	int szam2=0;
+	
+	while(cin >> szam1 >> szam2){   //előző ciklushoz képest annyit változtattunk hogy egy else if segitségével megvizsgálom egyenlő e a 2 érték ha igen kiírom hogy "equal"
+	if(szam1=='|' || szam2=='|'){
+		break;
+	}else{
+		if(szam1<szam2){
+			cout << "Smaller value is: " << szam1 << " The larger is : " << szam2 << endl;
+		}else if(szam1==szam2){		
+			cout << "Tha numbers are equal" << endl;
+		}else{
+			cout << "Smaller value is: " << szam2 << " The larger is : " << szam1 << endl;
+		}
+		
+	}
+	
+	
+	}*/
+	
+	//Negyedik feladat
+	/*
+	double szam1=0;
+	double szam2=0;
+	
+	while(cin >> szam1 >> szam2){    //kicseréltem az int típusú változókat double tipusúakra így tudok nem egész számokat is kezelni.
+	if(szam1=='|' || szam2=='|'){
+		break;
+	}else{
+		if(szam1<szam2){
+			cout << "Smaller value is: " << szam1 << " The larger is : " << szam2 << endl;
+		}else if(szam1==szam2){		
+			cout << "Tha numbers are equal" << endl;
+		}else{
+			cout << "Smaller value is: " << szam2 << " The larger is : " << szam1 << endl;
+		}
+		
+	}
+	
+	
+	}*/
+	
+	//ötödik feladat
+	/*
+	double szam1=0;
+	double szam2=0;
+	
+	while(cin >> szam1 >> szam2){			// ha a két szám külömbsége kevesebb / egyenlő 0.01 akkor kiírom hogy majdnem egyenlő
+		if(szam1=='|' || szam2=='|'){
+			break;
+		}else{
+			if(szam1<szam2){
+				cout << "Smaller value is: " << szam1 << " The larger is : " << szam2 << endl;
+				if((szam2-szam1)<0.01){
+				cout << "The numbers are almost equal" << endl;
+				}
+				
+			}else if(szam1==szam2){		
+				cout << "Tha numbers are equal" << endl;
+			}else{
+				cout << "Smaller value is: " << szam2 << " The larger is : " << szam1 << endl;
+				if((szam1-szam2)<0.01){
+				cout << "The numbers are almost equal" << endl;
+				}
+			}			
+		}		
+	}
+	*/
+	
+	//Hatos feladat
+	
+	double szam3=0;
+	double min=9999999;
+	double max=-9999999;   // ebben a feladatban felvettem egy min és egy max változót amibe tárolni fogom a legnagyobb és legkisebb értékeket.
+	string egyseg=" ";
+	double osszes_ertek=0;
+	int ertekek_szama=0;			//double tipusú adatok elnevezésű vektorba eltárolom a bevitt adatokat és megnézem a bevitt adat nagyobb/kisebb e az eddigieknél
+						// amennyiben igen akkor kicserélem.
+	vector<double> adatok;
+	
+	while(cin >> szam3 >> egyseg){ //szam es mertek bekeres
+		if(egysegek(egyseg)==true){			// adatok átváltása/tárolása és megadott értékek számának növelése
+			osszes_ertek+=valtas(szam3,egyseg);
+			ertekek_szama++;
+			adatok.push_back(valtas(szam3,egyseg));
+			sort(adatok);
+			
+			if(szam3<min){ //legnagyobb legkisseb eldontése
+			min=szam3;
+			}
+			
+			if(szam3>max){
+			max=szam3;}
+		
+		cout << "The largest so far : " << max << "\n" << "The smallest so far: " << min << "\n" << "The number of values: " << ertekek_szama++ << "\n";
+		cout << "The sum of values: " << osszes_ertek << " m" << "\n"  << "Elements of vector in order: " << endl;
+		
+		
+		
+		}
+		
+	}
+	for(double a:adatok){
+			cout << a << ","; 
+		}
+	
+return 0;
+}

@@ -1,0 +1,24 @@
+1 Cout-ba nagy C
+2 \n után kell egy "
+3 !-jel elé " és a sor végére ;
+4 "" lemaradt a succes-nél
+5 res típusát srting röl intre változtattam
+6 a ()-helyett [] használunk ezen felül nem != hanem ==
+7 cond változó nem volt deklarálva  így megadtam neki egy true értéket csinálhattam volna úgy hogy a cond nak true értéket adok de az több kódolás
+8 c változónak igaz értéket adtam
+9 megfordítottam a relációs jelet
+10 if-ben nem ==-re vizsgálunk hanem !=-re
+11 nem == hanem != + cout nál hiányzik < 
+12 felvettem egy változót és megnéztem egyenlő e ha nem akkor "success"
+13 nem 0-tol megyünk v.size hanem i-töl ; szintén
+14 ; for
+15 s.size ig megyünk és s[i] elemét írjuk ki
+16 kiszedjük a then-t
+17 c változó típusát átírtam int-re char rol így egyenlővé tudtam tenni a 2 változót
+18 10-helyett .size ig megy a for
+19 Vektornak adtam egy int típust
+20 
+21
+22 
+23
+24 nem - jel volt

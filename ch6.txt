@@ -1,0 +1,22 @@
+23 sor lass helyet class-t kell írni 
+38 - 39 sorra kihozott errorokat megoldja a 23 sorba kijavított class helyesen írása
+42 - 49 - 56 sor szintén nem érzékelte a class-t amire hivatkozni szerettünk volna
+65 sor Javítani kellett és bekellett írni a Token Token_stream::get() -t
+67 sor 65-s javítása
+70-s sor 65-s javítása
+108 sor nem érzékelte deklarálva a Token Class-t
+
+114 sor lemaradt egy "-jel az expected szó után
+
+130 sor nem érzékelte deklarálva a Token Class-t
+157 sor lemaradt a term( -után a )-jel
+187 sor (192 sor lett) val változó nincs deklarálva így a while ciklus előtt deklaráltam double tipússal
+190 sor val változót nem találta mert nem volt deklarálva
+
+main -en belül 
+if-ekben kicseréltem a q-t x-re és ;-t =-re
+76-77-78 sorokban szintén kicseréltem
+
+
+cout segítségével üdvözlő üzenetet írtam 
+cout segítségével kiírtam a használható operátorokat/műveleti jeleket
