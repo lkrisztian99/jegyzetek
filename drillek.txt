@@ -1,0 +1,66 @@
+drill 4
+2 változó 600 értékkel
+simple_window -> egy ablak létrehozása az előbb megadott paraméterekkel(600) és "Funciton Graphs" fejléccel
+újabb 2 int változó def
+31-> Középpont beállítása
+
+42-> 2 változó lkétrehozása amik kisebbek az általunbk megadott ablakok méretétől
+
+44-> x tengely létrehozása, 100 értékkel az ablak szélétől kezdődően,és az X tengelyen 1==20 pixels felirattal
+ugyan ezt megcsinálva az Y tengelyre
+
+
+49/50 megváltoztatjuk a tengelyek színét
+
+52-> alakzatok megrajzolása: "Alakzat" , minimum/maximum érték megadása, Középpont megadása, Mennyi szakaszból álljon, szakaszok nagysága
+
+
+Win.attach(alakzat) megjelnítés az ablakban.
+
+
+drill5
+
+lines_window.cpp
+5-14
+Gombok/grafikus elemek elhelyezése az ablakban
+18-24
+gombok megjelenítése a graf felületen
+menu_styles.attach(new Button{Point{0,0},0,0,"Solid",[](Address,Address pw){reference_to<Lines_window>(pw).change_style(Line_style::solid);}});
+Stílis menün belül megjelenítjük a solid- típust, amit a lines_window.h-ban definiáltunk hogy gombonymásra változzon a vonal stílus , de itt definiáltuk hogy milyenre
+Ezért használjuk a Reference_to függvényt és íhvjuk meg a lines window-t aztán emgadjuk az ott létrehozott change_style fügvényünket és beírjuk milyen stílusra változzon a vonal.
+
+cb_ függvények
+meghívják a header-ben írt függvényeket és megváltoztatjáék a színt
+
+
+drill 6
+T típusu tempalte
+privát értéke a T val; ezt a template-n kívül nem látják
+publikus azaz mindenhonnan elérhető értéke a 2 ksontruktor
+az egyik az S amiben üres-en hagyjuk
+a másik pedig megadjuik hogy S konstruktorunkban T típusu d változó legyen aminek értéke d
+
+10/11 meghívjuk az adott értékünket konstans és nem konstansként
+Set azaz tudjuk állítani a változónk értékét
+13- külömböző operatorok-ra tudunk majd konstansként hivatkozni pl 30-sor
+30-sor 
+kiiratást hozunk létre, amelyeket a <<-operátorokkal tudunk meghívni, és egy {}-t meg vektort várunk kiíratásnál
+43-sor konzolról való beolvasás 
+46- sima érték bekérése konzolról
+58- vektor bekérése/kezelése koncolról
+
+88-> lláétrehozzuk az adott változókat előre megadott értékekkel
+94-> get fügvény felhasználásával kiíratjuk
+102-> set függvény segítségével megváltoztatjuk változóink értékét
+ezt meghetetjuk set nélkül is a 22 sorban megírt függvénynek köszönhetően lásd 116 sor
+130-> beolvasás függvény konzol beolvasás
+
+
+drill9
+
+
+
+
+
+
+
