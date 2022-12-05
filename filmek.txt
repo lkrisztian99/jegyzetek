@@ -1,0 +1,284 @@
+IHomero interface 
+public interface IHomero {
+    double homersekletetMer();
+    void hatarokatBeallit(int alsoHatar, int felsoHatar);
+}
+
+----
+
+IKamera Interface
+
+public interface IKamera {
+    String kepetKeszit();
+    Kepformatum getFormatum();
+
+}
+
+
+------
+
+Szenzor class
+public abstract class Szenzor {
+    private Pozicio pozicio;
+
+    public Pozicio getPozicio() {
+        return pozicio;
+    }
+
+    protected void setPozicio(Pozicio pozicio) {
+        this.pozicio = pozicio;
+    }
+
+    public Szenzor(Pozicio pozicio) {
+        this.pozicio = pozicio;
+    }
+
+    public abstract boolean isAktiv();
+    public abstract void  adatkuldes();
+
+    @Override
+    protected abstract Object clone() throws CloneNotSupportedException;
+
+    @Override
+    public String toString() {
+        return String.format("%s (%d; %d)",
+                isAktiv() ? "On" : "Off",
+                pozicio.getX(), pozicio.getY());
+    }
+}
+
+
+
+
+
+-------
+Kamera java
+
+package com.company;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Scanner;
+
+public class Kamera extends Szenzor implements IKamera {
+
+    private Kepformatum formatum;
+
+
+    public Kamera(int x, int y, Kepformatum kepformatum) {
+
+        super(new Pozicio(x, y));
+        this.formatum = kepformatum;
+
+    }
+
+    @Override
+    public String kepetKeszit() {
+        if (!isAktiv()){
+            throw new SzenzorInaktivException();
+        }else{
+            LocalDateTime da=LocalDateTime.now();
+            DateTimeFormatter formatter= DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm");
+
+            String formatDateTime= da.format(formatter);
+
+            String back=formatDateTime+"_x"+getPozicio().getX()+"_y"+getPozicio().getY()+".PNG";
+
+            return back;
+        }
+
+
+    }
+
+    @Override
+    public Kepformatum getFormatum() {
+        return null;
+    }
+
+    @Override
+    public boolean isAktiv() {
+        LocalTime time = LocalTime.now();
+        if (time.getHour() >= 7 && time.getHour() <= 21) {
+            if (time.getHour() == 21 && time.getMinute() == 0) {
+                return true;
+            } else if (time.getHour() < 21) {
+                return true;
+            } else return false;
+
+        } else return false;
+    }
+
+
+
+
+    @Override
+    public void adatkuldes() {
+        System.out.println("Kép mentve: "+kepetKeszit());
+
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+       return new Kamera(this.getPozicio().getX(), this.getPozicio().getY(),formatum);
+    }
+    @Override
+    public String toString() {
+        return String.format("Kamera: %s, Formátum: %s",
+                super.toString(), formatum);
+    }
+
+
+}
+
+
+-------
+Homero class
+
+package com.company;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Random;
+
+public class Homero extends Szenzor implements IHomero{
+
+    private int alsoHatar;
+
+    public int getAlsoHatar() {
+        return alsoHatar;
+    }
+
+    private void setAlsoHatar(int alsoHatar) {
+        if (alsoHatar<-60){
+            throw new AlacsonyAlsoHatarException();
+        }else{
+            this.alsoHatar=alsoHatar;
+        }
+    }
+    public int felsoHatar;
+
+    public int getFelsoHatar() {
+        return felsoHatar;
+    }
+
+    private void setFelsoHatar(int felsoHatar) {
+        this.felsoHatar = felsoHatar;
+    }
+
+    private boolean aktiv;
+
+    public void setAktiv(boolean aktiv) {
+        this.aktiv = aktiv;
+    }
+
+    public Homero(int x,int y, int alsoHatar, int felsoHatar) {
+        super(new Pozicio(x,y));
+        hatarokatBeallit(alsoHatar,felsoHatar);
+        aktiv=true;
+    }
+
+    @Override
+    public double homersekletetMer() {
+        if(!isAktiv()){
+            throw new SzenzorInaktivException();
+        }else{
+            Random r=new Random();
+            String random=String.format("%.2f",r.nextDouble(alsoHatar,felsoHatar));
+            return Double.parseDouble(random);
+        }
+    }
+
+    @Override
+    public void hatarokatBeallit(int alsoHatar, int felsoHatar) {
+        setAlsoHatar(alsoHatar);
+        setFelsoHatar(felsoHatar);
+    }
+
+    @Override
+    public boolean isAktiv() {
+        return aktiv;
+    }
+
+    @Override
+    public void adatkuldes() {
+        LocalDateTime dat=LocalDateTime.now();
+        DateTimeFormatter formatter=DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm");
+        String ido=dat.format(formatter);
+        String visszaad="Hőmérséklet a(z) ("+getPozicio().getX()+";"+getPozicio().getY()
+                +") pozíción"+ido+" időpontban: "+homersekletetMer()+" °C";
+        System.out.println(visszaad);
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return new Homero(getPozicio().getX(), getPozicio().getY(), alsoHatar,felsoHatar);
+    }
+    @Override
+    public String toString() {
+        return String.format("Hőmérő: %s, A:%d - F:%d",
+                super.toString(), alsoHatar, felsoHatar);
+    }
+}
+
+
+
+
+-----
+
+SzenzorHalozat Class
+package com.company;
+
+import java.util.*;
+import java.util.function.Consumer;
+
+public class SzenzorHalozat implements Iterable<Szenzor>{
+
+     List<Szenzor> szenzorok;
+
+    public SzenzorHalozat() {
+        szenzorok =  new ArrayList<>();
+    }
+
+    public void telepit(Szenzor sz){
+        szenzorok.add(sz);
+    }
+
+    public List<Szenzor> aktivSzenzorok() throws CloneNotSupportedException{
+        ArrayList<Szenzor> szen=new ArrayList<>();
+        for (Szenzor sz: szenzorok) {
+            if (sz.isAktiv()){
+                szen.add((Szenzor) sz.clone());
+            }
+        }
+
+        return szen;
+    }
+
+    @Override
+    public Iterator<Szenzor> iterator() {
+        try {
+            List<Szenzor> sz=aktivSzenzorok();
+            Collections.reverse(sz);
+            return sz.iterator();
+
+        } catch (CloneNotSupportedException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    @Override
+    public void forEach(Consumer<? super Szenzor> action) {
+        Iterable.super.forEach(action);
+    }
+
+    @Override
+    public Spliterator<Szenzor> spliterator() {
+        return Iterable.super.spliterator();
+    }
+}
+
+
